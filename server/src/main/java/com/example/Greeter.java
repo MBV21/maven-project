@@ -13,7 +13,7 @@ public class Greeter {
   }
 
   /**
-   * bobagem javadoc, 
+   * bobagem javadoc.
    * @param blabla,
    * @return blabla.
    */
