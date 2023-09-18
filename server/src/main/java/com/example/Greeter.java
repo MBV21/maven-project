@@ -14,7 +14,7 @@ public class Greeter {
 
   /**
    * bobagem javadoc.
-   * @param blabla,
+   * @param someone
    * @return blabla.
    */
   public final String greet(final String someone) {
