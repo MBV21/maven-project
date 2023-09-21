@@ -34,6 +34,7 @@ pipeline {
                 }
                 stage("Deploy to Production") {
                     steps {
+                        bat 'dir'
                         // bat '"copy /y .\\target\\*.war C:\\apache-tomcat-2-production\\webapps"'
                     }
                 }
