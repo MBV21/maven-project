@@ -28,14 +28,14 @@ pipeline {
             parallel {
                 stage ('Deploy to Staging') {
                     steps {
-                        bat 'dir .\\webapp\\target'
-                        // bat '"copy /y .\\target\\*.war C:\\apache-tomcat-1-staging\\webapps"'
+                        // bat 'dir .\\webapp\\target'
+                        bat '"copy /y .\\webapp\\target\\*.war C:\\apache-tomcat-1-staging\\webapps"'
                     }
                 }
                 stage("Deploy to Production") {
                     steps {
-                        bat 'dir'
-                        // bat '"copy /y .\\target\\*.war C:\\apache-tomcat-2-production\\webapps"'
+                        // bat 'dir .\\webapp\\target'
+                        bat '"copy /y .\\webapp\\target\\*.war C:\\apache-tomcat-2-production\\webapps"'
                     }
                 }
             }
