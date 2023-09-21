@@ -35,7 +35,7 @@ pipeline {
                 build job: 'maven-project-deploy-to-production'
             }
             post {
-                sucess {
+                success {
                     echo 'Code deployed to Production.'
                 }
                 failure {
