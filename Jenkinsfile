@@ -28,7 +28,7 @@ pipeline {
             parallel {
                 stage ('Deploy to Staging') {
                     steps {
-                        bat 'dir'
+                        bat 'dir .\\webapp\\target'
                         // bat '"copy /y .\\target\\*.war C:\\apache-tomcat-1-staging\\webapps"'
                     }
                 }
