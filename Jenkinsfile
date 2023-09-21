@@ -2,10 +2,16 @@
 
 pipeline {
     agent any
-    tools {
-        maven 'Local_Maven'
+    parameters {
+        // string(name: 'tomcat_dev', defaultvalue: '10.32.109.55:48091', description: 'Staging server')
+        // string(name: 'tomcat_prod', defaultvalue: '10.32.109.55:48092', description: 'Production server')
+        string(name: 'tomcat_dev', defaultvalue: 'C:\apache-tomcat-1-staging\webapps')
+        string(name: 'tomcat_prod', defaultvalue: 'C:\apache-tomcat-2-production\webapps')
     }
-    stages{
+    triggers {
+        pollSCM('* * * * *')
+    }
+    stages {
         stage('Build') {
             steps {
                 // sh 'mvn clean package'
@@ -14,32 +20,21 @@ pipeline {
             post {
                 success {
                     echo 'Now Archiving...'
-                    // archiveArtifacts artifacts: '**/target/*.war' é 
-                    // equivalente a Archive the artifacts, 
-                    // Files to archive: **/*.war na interface do Jenkins
                     archiveArtifacts artifacts: '**/target/*.war'
                 }
             }
         }
-        stage('Deploy to Staging') {
-            steps {
-                // build job: executa uma tarefa definida no Jenkins
-                build job: 'maven-project-deploy-to-staging'
-            }
-        }
-        stage('Deploy to Production') {
-            steps {
-                timeout(time: 5, unit:'DAYS'){
-                    input message:'Approve Production Deployment?'
+        stage('Deployments') {
+            parallel {
+                stage ('Deploy to Staging') {
+                    steps {
+                        bat "copy .\target\*.war ${params.tomcat_dev}"
+                    }
                 }
-                build job: 'maven-project-deploy-to-production'
-            }
-            post {
-                success {
-                    echo 'Code deployed to Production.'
-                }
-                failure {
-                    echo 'Deployment failed.'
+                stage("Deploy to Production") {
+                    steps {
+                        bat "copy .\target\*.war ${params.tomcat_prod}"
+                    }
                 }
             }
         }
