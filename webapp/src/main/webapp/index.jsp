@@ -1,1 +1,3 @@
-Hello, World! Version pipeline auto!
+Hello, World! 
+
+Version pipeline auto 2

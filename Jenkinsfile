@@ -29,13 +29,13 @@ pipeline {
                 stage ('Deploy to Staging') {
                     steps {
                         // bat 'dir .\\webapp\\target'
-                        bat '"xcopy /y .\\webapp\\target\\*.war C:\\apache-tomcat-1-staging\\webapps"'
+                        bat '"xcopy /y .\\webapp\\target\\webapp.war C:\\apache-tomcat-1-staging\\webapps\\webapp.war"'
                     }
                 }
                 stage("Deploy to Production") {
                     steps {
                         // bat 'dir .\\webapp\\target'
-                        bat '"xcopy /y .\\webapp\\target\\*.war C:\\apache-tomcat-2-production\\webapps"'
+                        bat '"xcopy /y .\\webapp\\target\\webapp.war C:\\apache-tomcat-2-production\\webapps\\webapp.war"'
                     }
                 }
             }
